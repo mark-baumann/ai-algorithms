@@ -39,3 +39,4 @@ Thumbs.db
 # Testing
 .pytest_cache/
 
+wandb_runs/
