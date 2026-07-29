@@ -22,6 +22,19 @@ python3 knn_from_scratch.py
 python3 decision_tree.py
 ```
 
+## 🧪 Tests
+
+```bash
+# Alle Tests ausführen
+python3 -m pytest tests/ -v
+
+# Nur Entscheidungsbaum-Tests
+python3 -m pytest tests/test_decision_tree.py -v
+
+# Nur k-NN-Tests
+python3 -m pytest tests/test_knn.py -v
+```
+
 ## 🎯 Lernziele
 
 - **Phase 1: Grundlagen** — Algorithmen ohne Framework verstehen

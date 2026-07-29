@@ -35,3 +35,7 @@ Thumbs.db
 *.png
 *.jpg
 *.pdf
+
+# Testing
+.pytest_cache/
+
