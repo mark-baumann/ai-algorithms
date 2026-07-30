@@ -1,18 +1,17 @@
 """
 W&B Experiment Tracking für KI-Algorithmen
 ==========================================
-Integriert Weights & Biases in die KI-Algorithmen-Sammlung.
-Loggt Metriken, Hyperparameter und Visualisierungen.
+Integriert Weights & Biases in KI-Algorithmen (KNN, Decision Tree, etc.).
+Loggt Metriken, Confusion Matrices, Vorhersage-Tabellen und Laufzeiten.
 
 Verwendung:
     from wandb_utils import WandBTracker
     tracker = WandBTracker(project="ki-algorithmen", config={...})
-    tracker.log_metrics({"accuracy": 0.95, "train_time": 1.2})
+    tracker.log_metrics({"precision": 0.92, "recall": 0.88}, prefix="test")
     tracker.finish()
 """
 
 import os
-import subprocess
 import time
 
 try:
@@ -24,26 +23,19 @@ except ImportError:
 
 class WandBTracker:
     """
-    Gekapselter W&B-Tracker für ML-Algorithmen.
+    Gekapselter W&B-Tracker für KI-Algorithmen.
 
     Features:
-    - Automatischer Offline-Modus ohne API-Key
-    - Konsistente Metrik-Namen
-    - Hyperparameter-Logging
+    - Metriken mit Prefix loggen
+    - Confusion Matrix
+    - Vorhersage-Tabellen
     - Laufzeit-Messung
-    - Tabelle für Vorhersagen
     """
 
-    def __init__(
-        self,
-        project: str = "ki-algorithmen",
-        config: dict | None = None,
-        tags: list | None = None,
-        group: str | None = None,
-        job_type: str = "train",
-        notes: str | None = None,
-        offline: bool = False,
-    ):
+    def __init__(self, project: str = "ki-algorithmen",
+                 config: dict = None, tags: list = None,
+                 group: str = None, job_type: str = "train",
+                 notes: str = None, offline: bool = False):
         self.project = project
         self.run = None
         self._start_time = time.time()
@@ -55,7 +47,7 @@ class WandBTracker:
                     project=project,
                     config=config or {},
                     mode=mode,
-                    tags=tags or ["ml", "from-scratch"],
+                    tags=tags or ["ki", "ml"],
                     group=group,
                     job_type=job_type,
                     notes=notes,
@@ -63,67 +55,64 @@ class WandBTracker:
                 )
                 if mode == "online":
                     try:
+                        import subprocess
                         git_commit = subprocess.check_output(
                             ["git", "rev-parse", "--short", "HEAD"],
-                            stderr=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL
                         ).decode().strip()
                         self.log({"git_commit": git_commit})
-                    except Exception:  # noqa: S110, BLE001
+                    except Exception:
                         pass
                 print(f"📊 W&B initialisiert (mode={mode}, project={project})")
-            except Exception as e:  # noqa: BLE001
+            except Exception as e:
                 print(f"⚠️  W&B-Init fehlgeschlagen: {e}")
 
-    def log(self, metrics: dict, step: int | None = None):
+    def log(self, metrics: dict, step: int = None):
         """Loggt Metriken zu W&B."""
         if self.run:
             self.run.log(metrics, step=step)
 
-    def log_metrics(self, metrics: dict, prefix: str = ""):
-        """Loggt Metriken mit optionalem Präfix."""
+    def log_metrics(self, metrics: dict, prefix: str = None):
+        """Loggt Metriken mit optionalem Prefix."""
         if prefix:
             metrics = {f"{prefix}/{k}": v for k, v in metrics.items()}
         self.log(metrics)
 
     def log_elapsed_time(self):
-        """Loggt die vergangene Trainingszeit."""
+        """Loggt die vergangene Laufzeit seit Initialisierung."""
         elapsed = time.time() - self._start_time
-        self.log({"train_time_seconds": elapsed})
+        self.log({"elapsed_time_seconds": elapsed})
 
-    def log_predictions_table(
-        self, y_true: list, y_pred: list, class_names: list | None = None
-    ):
+    def log_predictions_table(self, y_true: list, y_pred: list):
         """Loggt eine Tabelle mit Vorhersagen."""
         if not self.run:
             return
-        columns = ["index", "true", "predicted", "correct"]
-        data = []
-        for i, (t, p) in enumerate(zip(y_true, y_pred)):
-            data.append([i, str(t), str(p), t == p])
-        table = wandb.Table(columns=columns, data=data)
+        table = wandb.Table(columns=["y_true", "y_pred"])
+        for t, p in zip(y_true, y_pred):
+            table.add_data(t, p)
         self.run.log({"predictions": table})
 
-    def log_confusion_matrix(self, y_true: list, y_pred: list, class_names: list):
+    def log_confusion_matrix(self, y_true: list, y_pred: list,
+                             class_names: list = None):
         """Loggt eine Confusion Matrix."""
         if not self.run:
             return
         try:
-            self.run.log({
-                "confusion_matrix": wandb.plot.confusion_matrix(
-                    probs=None,
-                    y_true=y_true,
-                    preds=y_pred,
-                    class_names=class_names,
-                )
-            })
-        except Exception:  # noqa: S110, BLE001
+            cm = wandb.plot.confusion_matrix(
+                probs=None,
+                y_true=y_true,
+                preds=y_pred,
+                class_names=class_names,
+            )
+            self.run.log({"confusion_matrix": cm})
+        except Exception:
             pass
 
     def finish(self):
-        """Beendet den W&B-Run."""
-        self.log_elapsed_time()
+        """Beendet den W&B-Run. Sicher bei mehrfachem Aufruf."""
         if self.run:
             self.run.finish()
+            self.run = None
 
     @property
     def is_active(self) -> bool:
