@@ -12,6 +12,7 @@ Verwendung:
 """
 
 import os
+import subprocess
 import time
 
 try:
@@ -62,7 +63,6 @@ class WandBTracker:
                 )
                 if mode == "online":
                     try:
-                        import subprocess
                         git_commit = subprocess.check_output(
                             ["git", "rev-parse", "--short", "HEAD"],
                             stderr=subprocess.DEVNULL,

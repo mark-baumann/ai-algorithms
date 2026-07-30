@@ -5,6 +5,7 @@ Linear/Logistic Regression interaktiv, Decision Boundary plotten,
 k-NN & Decision Tree von Grund auf.
 """
 
+import io
 import os
 import sys
 
@@ -318,7 +319,6 @@ with tab4:
     st.subheader("📖 Baumstruktur")
     if st.button("🌳 Baum anzeigen"):
         # Capture print output
-        import io
         old_stdout = sys.stdout
         sys.stdout = buffer = io.StringIO()
         model_dt.print_tree()
