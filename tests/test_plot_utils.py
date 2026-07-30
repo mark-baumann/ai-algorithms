@@ -12,7 +12,7 @@ import numpy as np
 matplotlib.use("Agg")  # Kein GUI-Backend nötig
 import matplotlib.pyplot as plt
 
-from plot_utils import plot_decision_boundary
+from app.plot_utils import plot_decision_boundary
 
 
 class MockModel:

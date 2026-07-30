@@ -13,7 +13,7 @@ import numpy as np
 import pytest
 from sklearn.datasets import make_classification
 
-from knn_from_scratch import KNearestNeighbors
+from app.knn_from_scratch import KNearestNeighbors
 
 
 class TestKNNInit:

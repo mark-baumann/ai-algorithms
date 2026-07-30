@@ -13,7 +13,7 @@ import numpy as np
 import pytest
 from sklearn.datasets import make_classification
 
-from decision_tree import DecisionTree, DecisionTreeNode
+from app.decision_tree import DecisionTree, DecisionTreeNode
 
 
 class TestDecisionTreeNode:

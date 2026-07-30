@@ -21,7 +21,7 @@ from sklearn.datasets import make_circles, make_classification, make_moons
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.model_selection import train_test_split
 
-from plot_utils import plot_decision_boundary
+from app.plot_utils import plot_decision_boundary
 
 
 class KNearestNeighbors:
