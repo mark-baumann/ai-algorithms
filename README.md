@@ -1,55 +1,96 @@
-# KI-Algorithmen — Von Grund auf verstehen
+# 🤖 KI-Algorithmen — Von Grund auf implementiert
 
-Sammlung von Machine-Learning-Algorithmen, implementiert mit NumPy und Scikit-Learn.
-Jeder Algorithmus ist als ausführbares Python-Skript mit Visualisierung umgesetzt.
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![NumPy](https://img.shields.io/badge/NumPy-1.24%2B-013243.svg)](https://numpy.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B.svg)](https://streamlit.io/)
+[![Status](https://img.shields.io/badge/Status-Aktiv-brightgreen.svg)]()
 
-## 📂 Algorithmen
+Fundamentale **Machine-Learning-Algorithmen** — von Grund auf mit NumPy implementiert und interaktiv visualisiert. Linear Regression, Logistic Regression mit Decision Boundaries, k-Nearest Neighbors und Decision Trees — verstehe die Mathematik hinter den Algorithmen, nicht nur die API.
 
-| Algorithmus | Datei | Typ | Framework |
-|---|---|---|---|
-| Lineare Regression | `Simple_Linear_Regression.ipynb` | Regression | Scikit-Learn |
-| Logistische Regression | `Simple_Logistic_Regression.ipynb` | Klassifikation | Scikit-Learn |
-| k-Nearest Neighbors | `knn_from_scratch.py` | Klassifikation | **Nur NumPy** |
-| Entscheidungsbaum | `decision_tree.py` | Klassifikation | **Nur NumPy** |
+## ✨ Features
 
-## 🚀 Ausführen
+- **📈 Linear Regression** — Daten generieren, Modell fitten, wahre vs. gelernte Linie vergleichen
+- **📊 Logistic Regression** — Decision Boundary auf verschiedenen Datasets (linear trennbar, Moons, Kreise)
+- **🔍 k-Nearest Neighbors** — Von Grund auf implementiert, mit verschiedenen k-Werten und Distanzmetriken
+- **🌳 Decision Tree** — Selbst gebaut mit Gini-Impurity und Entropy, Baumstruktur anzeigen
+- **🎨 Decision-Boundary-Visualisierung** — Farbige Regionen zeigen, wie das Modell den Raum aufteilt
+- **📊 W&B-Integration** — Experiment-Tracking mit Weights & Biases
+- **✅ Vollständig getestet** — Unit-Tests für k-NN, Decision Tree und Utilities
 
-```bash
-# k-NN von Grund auf
-python3 knn_from_scratch.py
-
-# Entscheidungsbaum von Grund auf
-python3 decision_tree.py
-```
-
-## 🧪 Tests
+## 🚀 Installation
 
 ```bash
-# Alle Tests ausführen
-python3 -m pytest tests/ -v
+# Repository klonen
+git clone https://github.com/mark-baumann/ki-algorithmen.git
+cd ki-algorithmen
 
-# Nur Entscheidungsbaum-Tests
-python3 -m pytest tests/test_decision_tree.py -v
+# Virtuelle Umgebung erstellen
+uv venv
+source .venv/bin/activate  # Linux/macOS
+# .venv\Scripts\activate   # Windows
 
-# Nur k-NN-Tests
-python3 -m pytest tests/test_knn.py -v
+# Abhängigkeiten installieren
+uv pip install -e ".[dev]"
 ```
 
-## 🎯 Lernziele
-
-- **Phase 1: Grundlagen** — Algorithmen ohne Framework verstehen
-- Jeder Algorithmus ist von Hand implementiert, nicht nur `sklearn` aufgerufen
-- Visualisierung der Entscheidungsgrenzen zum intuitiven Verständnis
-
-## 📦 Abhängigkeiten
+## 🎯 Nutzung
 
 ```bash
-uv pip install numpy matplotlib
+# Streamlit-App starten
+streamlit run app.py
 ```
 
-## 📝 Nächste Schritte
+Die App öffnet sich im Browser unter `http://localhost:8501`. Wähle einen der vier Tabs und experimentiere mit Datasets und Hyperparametern.
 
-- [ ] SVM von Grund auf
-- [ ] Naive Bayes von Grund auf
-- [ ] k-Means Clustering
-- [ ] PCA von Grund auf
+## 🧪 Tests ausführen
+
+```bash
+pytest tests/ -v
+```
+
+## 🛠️ Tech-Stack
+
+| Technologie | Einsatz |
+|-------------|---------|
+| **NumPy** | Kern-Implementierung von k-NN und Decision Tree |
+| **scikit-learn** | Linear/Logistic Regression, Datasets (make_blobs, make_moons) |
+| **Matplotlib** | Decision Boundaries und Datenvisualisierung |
+| **Streamlit** | Interaktive Web-App |
+| **Weights & Biases** | Experiment-Tracking |
+| **Pytest** | Test-Framework |
+
+## 📁 Projektstruktur
+
+```
+ki-algorithmen/
+├── app.py                  # Streamlit-Hauptapp (4 Tabs)
+├── pyproject.toml          # Projekt-Konfiguration
+├── knn_from_scratch.py     # k-NN Eigenimplementierung
+├── decision_tree.py        # Decision Tree Eigenimplementierung
+├── plot_utils.py           # Decision-Boundary-Visualisierung
+├── wandb_utils.py          # W&B-Integration
+└── tests/
+    ├── __init__.py
+    ├── conftest.py
+    ├── test_knn.py
+    ├── test_decision_tree.py
+    ├── test_plot_utils.py
+    └── test_wandb_utils.py
+```
+
+## 📖 Algorithmen im Detail
+
+| Algorithmus | Typ | Komplexität | Selbst gebaut? |
+|-------------|-----|-------------|----------------|
+| **Linear Regression** | Regression | O(n) | scikit-learn |
+| **Logistic Regression** | Klassifikation | O(n) | scikit-learn |
+| **k-Nearest Neighbors** | Klassifikation | O(n·d) pro Vorhersage | ✅ NumPy |
+| **Decision Tree** | Klassifikation | O(n·d·depth) | ✅ NumPy |
+
+## 👤 Autor
+
+**Mark Baumann** — [GitHub](https://github.com/mark-baumann)
+
+---
+
+*Die beste Art, ML-Algorithmen zu verstehen, ist, sie selbst zu implementieren. Dieses Projekt enthält saubere, kommentierte Eigenimplementierungen von k-NN und Decision Tree.*
