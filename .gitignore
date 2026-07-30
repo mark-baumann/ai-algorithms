@@ -1,16 +1,7 @@
-# Python
-__pycache__/
-*.py[cod]
-*.so
-.Python
-*.egg-info/
-dist/
-build/
-
 # Jupyter
 .ipynb_checkpoints/
 
-# Virtual environments
+# Virtuelle Umgebungen
 .venv/
 venv/
 env/
@@ -21,22 +12,10 @@ env/
 *.swp
 *.swo
 
-# OS
+# Betriebssystem
 .DS_Store
 Thumbs.db
 
-# Data files
-*.csv
-*.xlsx
-*.pkl
-*.joblib
-
-# Generated plots
-*.png
-*.jpg
-*.pdf
-
-# Testing
-.pytest_cache/
-
-wandb_runs/
+# Python-Cache (z.B. durch %%prun oder Kernel-Metadaten)
+__pycache__/
+*.py[cod]
