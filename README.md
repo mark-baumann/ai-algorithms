@@ -1,96 +1,65 @@
-# 🤖 KI-Algorithmen — Von Grund auf implementiert
+# KI-Algorithmen — eine Notebook-Reihe von Grund auf
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
-[![NumPy](https://img.shields.io/badge/NumPy-1.24%2B-013243.svg)](https://numpy.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-App-FF4B4B.svg)](https://streamlit.io/)
-[![Status](https://img.shields.io/badge/Status-Aktiv-brightgreen.svg)]()
+Eine in sich geschlossene Reihe von neun Jupyter-Notebooks, die zentrale Algorithmen des
+maschinellen Lernens aus ihren mathematischen Grundlagen herleitet, mit `NumPy`
+implementiert, empirisch untersucht und gegen `scikit-learn` validiert.
 
-Fundamentale **Machine-Learning-Algorithmen** — von Grund auf mit NumPy implementiert und interaktiv visualisiert. Linear Regression, Logistic Regression mit Decision Boundaries, k-Nearest Neighbors und Decision Trees — verstehe die Mathematik hinter den Algorithmen, nicht nur die API.
+Jedes Notebook folgt derselben Struktur: Zusammenfassung und Lernziele, theoretische
+Herleitung, Implementierung, empirische Analyse mit Diskussion der Ergebnisse, Grenzen
+des Verfahrens, Übungsaufgaben und Literaturangaben. Alle Notebooks sind vollständig
+ausführbar (`Kernel → Restart & Run All`) und verwenden ausschließlich simulierte oder
+über `scikit-learn` mitgelieferte Datensätze — es sind keine externen Downloads
+erforderlich.
 
-## ✨ Features
+## Inhalt
 
-- **📈 Linear Regression** — Daten generieren, Modell fitten, wahre vs. gelernte Linie vergleichen
-- **📊 Logistic Regression** — Decision Boundary auf verschiedenen Datasets (linear trennbar, Moons, Kreise)
-- **🔍 k-Nearest Neighbors** — Von Grund auf implementiert, mit verschiedenen k-Werten und Distanzmetriken
-- **🌳 Decision Tree** — Selbst gebaut mit Gini-Impurity und Entropy, Baumstruktur anzeigen
-- **🎨 Decision-Boundary-Visualisierung** — Farbige Regionen zeigen, wie das Modell den Raum aufteilt
-- **📊 W&B-Integration** — Experiment-Tracking mit Weights & Biases
-- **✅ Vollständig getestet** — Unit-Tests für k-NN, Decision Tree und Utilities
+| # | Notebook | Thema |
+|---|----------|-------|
+| 00 | [`00_grundlagen.ipynb`](notebooks/00_grundlagen.ipynb) | Lineare Algebra, Wahrscheinlichkeit, Optimierung, Bias-Varianz-Zerlegung |
+| 01 | [`01_lineare_regression.ipynb`](notebooks/01_lineare_regression.ipynb) | Kleinste Quadrate, Normalengleichungen, Gradientenabstieg, Inferenz |
+| 02 | [`02_logistische_regression.ipynb`](notebooks/02_logistische_regression.ipynb) | Maximum-Likelihood-Klassifikation, ROC-Analyse, Kalibrierung |
+| 03 | [`03_k_nearest_neighbors.ipynb`](notebooks/03_k_nearest_neighbors.ipynb) | Nichtparametrische Klassifikation, Fluch der Dimensionalität |
+| 04 | [`04_entscheidungsbaum.ipynb`](notebooks/04_entscheidungsbaum.ipynb) | Rekursive Partitionierung, Gini/Entropie, Overfitting |
+| 05 | [`05_naive_bayes.ipynb`](notebooks/05_naive_bayes.ipynb) | Bayes-Theorem, Gaussian & Multinomial Naive Bayes, Textklassifikation |
+| 06 | [`06_k_means.ipynb`](notebooks/06_k_means.ipynb) | Unüberwachtes Clustering, Lloyds Algorithmus, k-means++ |
+| 07 | [`07_pca.ipynb`](notebooks/07_pca.ipynb) | Hauptkomponentenanalyse, Dimensionsreduktion, SVD |
+| 08 | [`08_neuronales_netz.ipynb`](notebooks/08_neuronales_netz.ipynb) | Mehrschichtiges Perzeptron, Backpropagation, Gradient Checking |
 
-## 🚀 Installation
+Notebook 00 legt das mathematische Vokabular (lineare Algebra, Wahrscheinlichkeit,
+Optimierung, Bias-Varianz-Tradeoff), auf das die Notebooks 01–08 explizit verweisen.
+Die überwachten Modelle (01–05, 08) werden konsequent auf denselben Beispieldatensätzen
+verglichen; 06–07 behandeln unüberwachtes Lernen.
+
+## Verwendete Werkzeuge
+
+Alle Algorithmen sind vollständig mit `NumPy` implementiert. `scikit-learn` dient
+ausschließlich zur Erzeugung von Datensätzen, zur Validierung der Eigenimplementierungen
+und als Vergleichsmaßstab — nicht als Ersatz für die eigene Herleitung. `pandas` und
+`matplotlib` werden für Tabellen bzw. Visualisierungen verwendet, `scipy` für
+Verteilungsfunktionen und numerische Optimierung in Notebook 00.
+
+## Installation
 
 ```bash
-# Repository klonen
 git clone https://github.com/mark-baumann/ki-algorithmen.git
 cd ki-algorithmen
 
-# Virtuelle Umgebung erstellen
-uv venv
-source .venv/bin/activate  # Linux/macOS
-# .venv\Scripts\activate   # Windows
+python3 -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 
-# Abhängigkeiten installieren
-uv pip install -e ".[dev]"
+pip install -r requirements.txt
 ```
 
-## 🎯 Nutzung
+## Nutzung
 
 ```bash
-# Streamlit-App starten
-streamlit run app.py
+jupyter notebook notebooks/
 ```
 
-Die App öffnet sich im Browser unter `http://localhost:8501`. Wähle einen der vier Tabs und experimentiere mit Datasets und Hyperparametern.
+Die Notebooks sind nummeriert und bauen inhaltlich aufeinander auf (00 → 08); sie können
+aber auch einzeln gelesen werden, da jedes Notebook die benötigten Vorkenntnisse mit
+Verweis auf die entsprechende Stelle in Notebook 00 kurz einführt.
 
-## 🧪 Tests ausführen
-
-```bash
-pytest tests/ -v
-```
-
-## 🛠️ Tech-Stack
-
-| Technologie | Einsatz |
-|-------------|---------|
-| **NumPy** | Kern-Implementierung von k-NN und Decision Tree |
-| **scikit-learn** | Linear/Logistic Regression, Datasets (make_blobs, make_moons) |
-| **Matplotlib** | Decision Boundaries und Datenvisualisierung |
-| **Streamlit** | Interaktive Web-App |
-| **Weights & Biases** | Experiment-Tracking |
-| **Pytest** | Test-Framework |
-
-## 📁 Projektstruktur
-
-```
-ki-algorithmen/
-├── app.py                  # Streamlit-Hauptapp (4 Tabs)
-├── pyproject.toml          # Projekt-Konfiguration
-├── knn_from_scratch.py     # k-NN Eigenimplementierung
-├── decision_tree.py        # Decision Tree Eigenimplementierung
-├── plot_utils.py           # Decision-Boundary-Visualisierung
-├── wandb_utils.py          # W&B-Integration
-└── tests/
-    ├── __init__.py
-    ├── conftest.py
-    ├── test_knn.py
-    ├── test_decision_tree.py
-    ├── test_plot_utils.py
-    └── test_wandb_utils.py
-```
-
-## 📖 Algorithmen im Detail
-
-| Algorithmus | Typ | Komplexität | Selbst gebaut? |
-|-------------|-----|-------------|----------------|
-| **Linear Regression** | Regression | O(n) | scikit-learn |
-| **Logistic Regression** | Klassifikation | O(n) | scikit-learn |
-| **k-Nearest Neighbors** | Klassifikation | O(n·d) pro Vorhersage | ✅ NumPy |
-| **Decision Tree** | Klassifikation | O(n·d·depth) | ✅ NumPy |
-
-## 👤 Autor
+## Autor
 
 **Mark Baumann** — [GitHub](https://github.com/mark-baumann)
-
----
-
-*Die beste Art, ML-Algorithmen zu verstehen, ist, sie selbst zu implementieren. Dieses Projekt enthält saubere, kommentierte Eigenimplementierungen von k-NN und Decision Tree.*
