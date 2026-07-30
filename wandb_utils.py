@@ -13,7 +13,6 @@ Verwendung:
 
 import os
 import time
-from typing import Optional
 
 try:
     import wandb
@@ -37,11 +36,11 @@ class WandBTracker:
     def __init__(
         self,
         project: str = "ki-algorithmen",
-        config: Optional[dict] = None,
-        tags: Optional[list] = None,
-        group: Optional[str] = None,
+        config: dict | None = None,
+        tags: list | None = None,
+        group: str | None = None,
         job_type: str = "train",
-        notes: Optional[str] = None,
+        notes: str | None = None,
         offline: bool = False,
     ):
         self.project = project
@@ -69,13 +68,13 @@ class WandBTracker:
                             stderr=subprocess.DEVNULL,
                         ).decode().strip()
                         self.log({"git_commit": git_commit})
-                    except Exception:
+                    except Exception:  # noqa: S110, BLE001
                         pass
                 print(f"📊 W&B initialisiert (mode={mode}, project={project})")
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001
                 print(f"⚠️  W&B-Init fehlgeschlagen: {e}")
 
-    def log(self, metrics: dict, step: Optional[int] = None):
+    def log(self, metrics: dict, step: int | None = None):
         """Loggt Metriken zu W&B."""
         if self.run:
             self.run.log(metrics, step=step)
@@ -92,7 +91,7 @@ class WandBTracker:
         self.log({"train_time_seconds": elapsed})
 
     def log_predictions_table(
-        self, y_true: list, y_pred: list, class_names: Optional[list] = None
+        self, y_true: list, y_pred: list, class_names: list | None = None
     ):
         """Loggt eine Tabelle mit Vorhersagen."""
         if not self.run:
@@ -117,7 +116,7 @@ class WandBTracker:
                     class_names=class_names,
                 )
             })
-        except Exception:
+        except Exception:  # noqa: S110, BLE001
             pass
 
     def finish(self):

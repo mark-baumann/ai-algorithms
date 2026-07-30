@@ -2,10 +2,11 @@
 Gemeinsame pytest-Konfiguration und Fixtures für KI-Algorithmen-Tests.
 """
 
-import sys
 import os
-import pytest
+import sys
+
 import matplotlib
+
 matplotlib.use("Agg")  # Kein GUI-Backend in Tests
 
 

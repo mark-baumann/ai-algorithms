@@ -15,11 +15,11 @@ Autor: Hermes Agent für Marks KI-Lernreise
 Datum: 29.07.2026
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.datasets import make_classification, make_moons, make_circles
-from sklearn.model_selection import train_test_split
+import numpy as np
+from sklearn.datasets import make_circles, make_classification, make_moons
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import train_test_split
 
 from plot_utils import plot_decision_boundary
 
@@ -146,7 +146,7 @@ def demonstrate_k_effect():
         X, y, test_size=0.3, random_state=42
     )
 
-    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+    _fig, axes = plt.subplots(2, 3, figsize=(15, 10))
     k_values = [1, 3, 5, 7, 11, 21]
 
     for ax, k in zip(axes.flat, k_values):
@@ -192,7 +192,7 @@ def demonstrate_metrics():
         X, y, test_size=0.3, random_state=42
     )
 
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    _fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
     for ax, metric in zip(axes, ["euclidean", "manhattan"]):
         model = KNearestNeighbors(k=5, metric=metric)
@@ -235,7 +235,7 @@ def demonstrate_datasets():
         ("Halbmonde", make_moons(n_samples=200, noise=0.15, random_state=42)),
     ]
 
-    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+    _fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 
     for ax, (name, (X, y)) in zip(axes, datasets):
         X_train, X_test, y_train, y_test = train_test_split(

@@ -14,11 +14,11 @@ Autor: Hermes Agent für Marks KI-Lernreise
 Datum: 29.07.2026
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.datasets import make_classification, make_moons
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
+from sklearn.model_selection import train_test_split
 
 from plot_utils import plot_decision_boundary
 
@@ -254,7 +254,7 @@ def demonstrate_depth_effect():
         X, y, test_size=0.3, random_state=42
     )
 
-    fig, axes = plt.subplots(2, 3, figsize=(15, 10))
+    _fig, axes = plt.subplots(2, 3, figsize=(15, 10))
     depths = [1, 2, 3, 5, 10, 20]
 
     for ax, depth in zip(axes.flat, depths):
@@ -297,7 +297,7 @@ def demonstrate_criterion():
         X, y, test_size=0.3, random_state=42
     )
 
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    _fig, axes = plt.subplots(1, 2, figsize=(12, 5))
 
     for ax, criterion in zip(axes, ["gini", "entropy"]):
         model = DecisionTree(max_depth=4, criterion=criterion)

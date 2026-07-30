@@ -6,11 +6,11 @@ Testet:
 - Achsenbeschriftungen werden gesetzt
 """
 
-import numpy as np
 import matplotlib
+import numpy as np
+
 matplotlib.use("Agg")  # Kein GUI-Backend nötig
 import matplotlib.pyplot as plt
-import pytest
 
 from plot_utils import plot_decision_boundary
 

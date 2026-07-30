@@ -2,8 +2,8 @@
 Gemeinsame Visualisierungs-Hilfsfunktionen für ML-Algorithmen.
 """
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.colors import ListedColormap
 
 

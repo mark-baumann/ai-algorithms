@@ -5,21 +5,21 @@ Linear/Logistic Regression interaktiv, Decision Boundary plotten,
 k-NN & Decision Tree von Grund auf.
 """
 
-import streamlit as st
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.datasets import make_classification, make_moons, make_circles, make_blobs
-from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, classification_report
-from matplotlib.colors import ListedColormap
-import sys
 import os
+import sys
+
+import matplotlib.pyplot as plt
+import numpy as np
+import streamlit as st
+from sklearn.datasets import make_blobs, make_circles, make_classification, make_moons
+from sklearn.linear_model import LinearRegression, LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
 
 sys.path.insert(0, os.path.dirname(__file__))
-from plot_utils import plot_decision_boundary
-from knn_from_scratch import KNearestNeighbors
 from decision_tree import DecisionTree
+from knn_from_scratch import KNearestNeighbors
+from plot_utils import plot_decision_boundary
 
 st.set_page_config(page_title="KI-Algorithmen", layout="wide")
 st.title("🤖 KI-Algorithmen — Interaktiv")
@@ -256,7 +256,7 @@ with tab3:
     | k=5 | Ausgewogen, gute Generalisierung | ✅ Optimal |
     | k=21 | Sehr glatt, ignoriert feine Strukturen | **Underfitting** |
 
-    **Faustregel:** $k \approx \sqrt{n}$ (Quadratwurzel der Trainingsdaten)
+    **Faustregel:** $k \\approx \\sqrt{n}$ (Quadratwurzel der Trainingsdaten)
     """)
 
 # ═══════════════════════════════════════════════════════════════
