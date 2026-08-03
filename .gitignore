@@ -19,3 +19,5 @@ Thumbs.db
 # Python-Cache (z.B. durch %%prun oder Kernel-Metadaten)
 __pycache__/
 *.py[cod]
+.venv
+*.pyc
